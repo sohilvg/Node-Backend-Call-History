@@ -128,6 +128,57 @@ router.post('/api/v1/login', async (req, res, next) => {
     }
 
 });
+
+/*Admin login api*/
+router.post('/api/v1/adminlogin', async (req, res, next) => {
+    const { body } = req;
+    const { username } = body;
+    const { password } = body;
+    // const { email } = body;  
+    // const data = req.data
+
+    if (!req.body.username && !req.body.password) {
+        res.status(400).send({ msg: 'Please pass username and password.' })
+    } else {
+        try {
+            // const data = req.data
+
+            // const encrypted_username = encrypt(data);
+            // const encrypted_password = encrypt(req.body.password);
+            const user = await knex("history.admin_login").where({
+                // email: req.body.email,
+                username: req.body.username,
+                password: req.body.password
+                // email: req.body.email
+            }).first();
+            console.log(user);
+            // const user = await knex("usermanagement.users")
+            //     .select("users.username", "users.password").first();
+            // // const decrepted_username = decrypt(user.username);
+            // // const decrepted_password = decrypt(user.password);
+            // console.log(decrepted_username);
+
+            //checking to make sure the user entered the correct username/password combo
+            if (username === user.username && password === user.password) {
+                jwt.sign({ user }, privatekey, { expiresIn: '2h' }, (err, token) => {
+                    if (err) { console.log(err) }
+                    res.send(token);
+                    res.json({
+                        message: 'Successful log in'
+                    });
+                });
+                console.log('Successful log in');
+            } else {
+                console.log('ERROR: Could not log in');
+            }
+            // }
+        } catch (error) {
+            console.error('ERROR: Could not log in');
+
+        }
+    }
+
+});
 const decrypt = (text) => {
     var decipher = crypto.createDecipher(algorithm, my_secret)
     var dec = decipher.update(text, 'hex', 'utf8')
