@@ -106,9 +106,6 @@ router.post('/api/v1/login', async (req, res, next) => {
 
             //checking to make sure the user entered the correct username/password combo
             if (username === user.username && password === user.password) {
-                res.json({
-                    message: 'Successful log in'
-                });
                 jwt.sign({ user }, privatekey, { expiresIn: '2h' }, (err, token) => {
                     if (err) { console.log(err) }
                     res.send(token);
@@ -116,7 +113,7 @@ router.post('/api/v1/login', async (req, res, next) => {
                         message: 'Successful log in'
                     });
                 });
-
+                console.log('Successful log in');
             } else {
                 console.log('ERROR: Could not log in');
             }

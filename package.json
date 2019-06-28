@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js",
+    "test": "export NODE_ENV=local || SET \"NODE_ENV=local\""
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,15 @@
   "dependencies": {
     "bcrypt": "3.0.6",
     "body-parser": "1.19.0",
+    "cookie-parser": "^1.4.4",
     "cors": "2.8.5",
+    "debug": "^4.1.1",
     "dotenv": "^8.0.0",
     "express": "4.17.1",
+    "http": "0.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "0.17.6",
+    "morgan": "^1.9.1",
     "nodemon": "1.19.1",
     "pg": "7.11.0"
   }
