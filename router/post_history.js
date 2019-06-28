@@ -21,7 +21,7 @@ router.use(function (req, res, next) {
 });
 
 /* add call history to database*/
-router.post("/api/v1/history", async function (req, res) {
+router.post("/api/v1/add", async function (req, res) {
     try {
         console.log(JSON.stringify(req.body));
         const result = await knex("history.call_history").insert({

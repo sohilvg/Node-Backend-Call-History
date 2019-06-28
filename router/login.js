@@ -44,7 +44,7 @@ router.post('/api/v1/signup', async (req, res, next) => {
             // });
 
             // console.log(token)
-            const result = await knex("history.login")
+            const result = await knex("history.login_access")
                 // .distinct(username, password, email)
                 .insert({ username: req.body.username, password: req.body.password, email: req.body.email })
                 .returning('*')
@@ -83,7 +83,8 @@ router.post('/api/v1/login', async (req, res, next) => {
     const { body } = req;
     const { username } = body;
     const { password } = body;
-    // const { email } = body;    // const data = req.data
+    // const { email } = body;  
+    // const data = req.data
 
     if (!req.body.username && !req.body.password) {
         res.status(400).send({ msg: 'Please pass username and password.' })
@@ -93,11 +94,13 @@ router.post('/api/v1/login', async (req, res, next) => {
 
             // const encrypted_username = encrypt(data);
             // const encrypted_password = encrypt(req.body.password);
-            const user = await knex("history.login").where({
+            const user = await knex("history.login_access").where({
                 // email: req.body.email,
                 username: req.body.username,
                 password: req.body.password
+                // email: req.body.email
             }).first();
+            console.log(user);
             // const user = await knex("usermanagement.users")
             //     .select("users.username", "users.password").first();
             // // const decrepted_username = decrypt(user.username);

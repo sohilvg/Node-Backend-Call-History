@@ -1,8 +1,4 @@
 
-const knex = require('./helpers/knex');
-const gethistory = require('./router/get_history');
-const posthistory = require('./router/post_history');
-const login = require('./router/login');
 
 // dotenv.config();
 
@@ -17,6 +13,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const debug = require('debug')('temp-generator:server');
 const http = require('http');
+const knex = require('./helpers/knex');
+const gethistory = require('./router/get_history');
+const posthistory = require('./router/post_history');
+const login = require('./router/login');
 
 const app = express();
 
